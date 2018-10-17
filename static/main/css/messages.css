@@ -1,0 +1,96 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+a {
+    color: #2b7bb9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+body {
+    /*font-family: Arial, sans-serif;*/
+    /*background: #eeeeee;*/
+    font-size: 16px;
+    color: #171a1c;
+    line-height: 1.5;
+}
+
+.wrapper {
+    /*margin: 90px auto;*/
+    width: 100%;
+    /*max-width: 600px;*/
+}
+
+.card {
+    background: white;
+    position: relative;
+    border-radius: 3px;
+    padding: 1.25em;
+    box-shadow: 0 2px 6px rgba(23, 26, 28, 0.1);
+}
+
+.card:hover {
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+    box-shadow: 0 5px 12px rgba(23, 26, 28, 0.2);
+    transition: 250ms ease 50ms;
+}
+
+.card .card-profile {
+    display: table;
+}
+
+.card .card-profile .card-profile__photo, .card .card-profile .card-profile__info {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.card .card-profile .card-profile__photo:hover, .card .card-profile .card-profile__info:hover {
+    opacity: .84;
+}
+
+.card .card-profile .card-profile__photo {
+    width: 70px;
+}
+
+.card .card-profile .card-profile__photo .profile-photo__img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #ced0ce;
+}
+
+.card .card-profile .card-profile__info {
+    text-decoration: none;
+    color: inherit;
+    line-height: 1;
+}
+
+.card .card-profile .card-profile__info .profile-info__name {
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-bottom: .2em;
+}
+
+.card .card-profile .card-profile__info .profile-info__username {
+    font-size: .9em;
+    color: #656565;
+}
+
+.card .card-profile .card-profile__info span {
+    display: block;
+}
+
+.card .card-message .card-message-stamp {
+    font-size: .9em;
+    color: #656565;
+}
+
+.card .card-message .card-message-stamp:hover {
+    color: #2b7bb9;
+}

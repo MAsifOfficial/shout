@@ -1,7 +1,116 @@
 {% extends 'base.html' %}
 
-{% block content %}
-    <h1>Test</h1>
+{% load static %}
 
-    {{ form.as_p }}
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'main/css/messages.css' %}" type="text/css">
+
+<style>
+    input[type="submit"]:disabled {
+        cursor: not-allowed;
+    }
+
+    .messages textarea {
+        resize: none;
+    }
+
+    .messages {
+        background-color: #eee;
+        padding: 35px;
+        border: 1px solid #ccc;
+        min-height: 90vh;
+    }
+</style>
+
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="container messages">
+    <form method="post" class="form">
+        <div class="row">
+            <div class="offset-md-2 col-md-8">
+                {% csrf_token %}
+                <textarea name="message_content" rows="5" required
+                          placeholder="Write your message" id="id_message_content"
+                          class="form-control"></textarea>
+                <input type="submit" class="btn btn-success" id="shout_submit" disabled value="Shout" style="width: 100%">
+            </div>
+        </div>
+    </form>
+
+    {% for message in messages %}
+    <div class="row mt-5">
+        <div class="offset-md-2 col-md-8">
+            <div class="wrapper">
+                <div class="card">
+                    <!--<div class="card-profile">-->
+                        <!--<a class="card-profile__photo" href="#">-->
+                            <!--<img class="profile-photo__img"-->
+                                 <!--src="https://pbs.twimg.com/profile_images/631495506770817024/6OX4_2Gq.png"/>-->
+                        <!--</a>-->
+                        <!--<a class="card-profile__info" href="#"><span class="profile-info__name">Son Goku</span>-->
+                            <!--<span class="profile-info__username">@supersaiyan_goku</span>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                    <div class="card-message">
+                        <p>{{ message.message_content }}</p>
+                        <a class="card-message-stamp" href="#">
+                            <span class="time">{{ message.created_at|date:"g:i A "}}</span>&nbsp;&ndash;&nbsp;<span
+                                class="date">{{ message.created_at|date:"F j, Y "}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+    <!--<div class="row mt-5">-->
+        <!--<div class="offset-md-2 col-md-8">-->
+            <!--<div class="wrapper">-->
+                <!--<div class="card">-->
+                    <!--&lt;!&ndash;<div class="card-profile">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<a class="card-profile__photo" href="#">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<img class="profile-photo__img"&ndash;&gt;-->
+                                 <!--&lt;!&ndash;src="https://pbs.twimg.com/profile_images/631495506770817024/6OX4_2Gq.png"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<a class="card-profile__info" href="#"><span class="profile-info__name">Son Goku</span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="profile-info__username">@supersaiyan_goku</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="card-message">-->
+                        <!--<p>Shout out to the homie <a href="#">Yajirobe</a>&nbsp;for keeping it &#x1F4AF;. Always coming-->
+                            <!--through with the Senzu Beans &#x2615; for the fam.</p>-->
+                        <!--<a class="card-message-stamp" href="#">-->
+                            <!--<span class="time">1:05 PM</span>&nbsp;&ndash;&nbsp;<span-->
+                                <!--class="date">December 1, 2017</span>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+    <!--</div>-->
+</div>
 {% endblock content %}
+
+
+{% block extra_js %}
+
+    <script>
+        $(document).ready(function () {
+            $('#id_message_content').on('input', function (e) {
+                let message_field = $('#id_message_content');
+                let submit_btn = $('#shout_submit');
+                if(message_field.val() !== '') {
+                    submit_btn.prop('disabled', false);
+                } else {
+                    submit_btn.prop('disabled', true);
+                }
+            });
+        });
+    </script>
+
+{% endblock extra_js %}
